@@ -52,3 +52,44 @@ temp_uploads/
 
 # Logs
 *.log 
+
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.pyo
+*.pyd
+
+# 📦 Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# 🧪 Testing & Logs
+*.log
+*.tmp
+*.bak
+
+# 🔐 Secrets
+.env
+*.key
+*.pem
+
+# 🖼️ OS & Editor Junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 📦 Packaging
+dist/
+build/
+
+# 🔊 Temporary Uploads
+temp_uploads/
+
+# 💻 Node/Frontend (if applicable)
+node_modules/
+*.map
