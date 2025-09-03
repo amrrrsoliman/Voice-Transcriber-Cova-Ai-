@@ -18,6 +18,13 @@ A beautiful, accessible voice-to-text transcription system optimized for deaf us
 - **Clear visual feedback** for all system states
 - **Mobile-responsive design** for all devices
 
+## Requirements
+
+- Python 3.10+
+- OpenAI API key (set as environment variable `OPENAI_API_KEY`)
+- Install dependencies:
+
+
 ### 📜 Transcription Display
 - **Beautiful transcript bubbles** with gradient backgrounds
 - **Language detection** with confidence scores
