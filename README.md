@@ -6,9 +6,13 @@ A beautiful, accessible voice-to-text transcription system optimized for deaf us
 🎙️ Recording System
 
 1-minute maximum recording time with automatic stop
+
 Manual stop button for early termination
+
 Live countdown timer showing remaining time
+
 High-quality audio capture with noise suppression and echo cancellation
+
 Real-time visual feedback with animated wave indicators
 🎨 Accessibility-First Design
 Soft off-white background for reduced eye strain
