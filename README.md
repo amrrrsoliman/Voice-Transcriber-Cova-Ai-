@@ -2,7 +2,9 @@ Live Voice Transcriber for the Deaf
 A beautiful, accessible voice-to-text transcription system optimized for deaf users. This application provides real-time speech transcription with a user-friendly interface designed specifically for accessibility.
 
 🌟 Features
+
 🎙️ Recording System
+
 1-minute maximum recording time with automatic stop
 Manual stop button for early termination
 Live countdown timer showing remaining time
