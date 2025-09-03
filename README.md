@@ -27,17 +27,29 @@ Clear visual feedback for all system states
 Mobile-responsive design for all devices
 
 Requirements
+
 Python 3.10+
+
 OpenAI API key (set as environment variable OPENAI_API_KEY)
+
 Install dependencies:
+
 📜 Transcription Display
+
 Beautiful transcript bubbles with gradient backgrounds
+
 Language detection with confidence scores
+
 Error handling with friendly, clear messages
+
 Real-time status updates throughout the process
+
 🔧 Backend Features
+
 Whisper AI integration for accurate transcription
+
 Automatic audio format conversion (supports WAV, MP3, M4A, FLAC, OGG, WEBM)
+
 Robust error handling with detailed feedback
 CORS enabled for cross-origin requests
 Optimized model loading (loads once at startup)
