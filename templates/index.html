@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CovAi - Make Communication Easier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-light: #999999;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            --nav-bg: #121212;
+            --accent-black: #000000;
+            --accent-gray: #e5e5e5;
+            --border-color: #e0e0e0;
+            --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --border-radius: 8px;
+            --border-radius-large: 12px;
+            --recording-red: #6f1d1b;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            font-family: 'Chillax', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.2s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main Content */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 24px 80px;
+            text-align: center;
+        }
+        
+        .content-wrapper {
+            max-width: 700px;
+            width: 100%;
+        }
+        
+        /* Main Heading */
+        .main-heading {
+            font-family: 'Chillax', sans-serif;
+            font-size: clamp(4rem, 10vw, 6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Chillax', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 64px;
+            letter-spacing: 0.02em;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        /* Subheading */
+        .subheading {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 64px;
+            line-height: 1.3;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        /* Voice Recording Circle */
+        .voice-circle-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 64px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .voice-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .voice-circle:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-large);
+        }
+        
+        .voice-circle.recording {
+            animation: recordingPulse 2s infinite;
+        }
+        
+        .voice-circle.recording::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 2px solid var(--accent-black);
+            border-radius: 50%;
+            animation: recordingRing 2s infinite;
+        }
+        
+        .voice-circle.recording::after {
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: -16px;
+            right: -16px;
+            bottom: -16px;
+            border: 1px solid var(--accent-black);
+            border-radius: 50%;
+            animation: recordingRing 2s infinite 0.5s;
+        }
+        
+        @keyframes recordingPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 12px rgba(0, 0, 0, 0);
+            }
+        }
+        
+        @keyframes recordingRing {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        
+        .voice-icon {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+        
+        /* Recording Controls */
+        .controls {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .controls.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .record-btn {
+            background: var(--accent-black);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .record-btn:hover {
+            background: #333333;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .record-btn.recording {
+            background: var(--recording-red);
+            animation: recordingPulse 2s infinite;
+        }
+        
+        .record-btn.recording::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid var(--recording-red);
+            border-radius: var(--border-radius);
+            animation: recordingRing 2s infinite;
+        }
+        
+        @keyframes recordingPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 0 12px rgba(0, 0, 0, 0);
+            }
+        }
+        
+        @keyframes recordingRing {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        
+        /* Status Display */
+        .status {
+            margin: 32px 0;
+            padding: 16px 24px;
+            border-radius: var(--border-radius-large);
+            font-size: 1rem;
+            font-weight: 500;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .status.listening {
+            background: var(--recording-red);
+            color: white;
+            border-color: var(--recording-red);
+        }
+        
+        .status.processing {
+            background: #f59e0b;
+            color: white;
+            border-color: #f59e0b;
+        }
+        
+        .status.ready {
+            background: #059669;
+            color: white;
+            border-color: #059669;
+        }
+        
+        .status.error {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+        
+        /* Timer */
+        .timer {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 20px 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Transcript Area */
+        .transcript-container {
+            margin-top: 40px;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-large);
+            padding: 32px;
+            min-height: 240px;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .transcript-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .transcript-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        
+        .transcript-info {
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            border-left: 4px solid #dc2626;
+        }
+        
+        /* Description Section */
+        .description-section {
+            margin-top: 80px;
+            max-width: 600px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .description-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .description-text {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            padding: 50px 24px;
+            text-align: center;
+            margin-top: 100px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+        
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 120px 20px 60px;
+            }
+            
+            .nav-content {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                gap: 24px;
+            }
+            
+            .voice-circle {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .voice-icon {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .transcript-container {
+                padding: 24px;
+            }
+            
+            .description-text {
+                font-size: 1.1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-heading {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .subheading {
+                font-size: 1.3rem;
+            }
+            
+            .voice-circle {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .voice-icon {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .record-btn {
+                padding: 14px 28px;
+                font-size: 0.9rem;
+            }
+            
+            .timer {
+                font-size: 1.5rem;
+            }
+            
+            .description-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar" id="navBar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">CovAi</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="#help">Help</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <div class="content-wrapper">
+            <!-- Main Heading -->
+            <h1 class="main-heading">CovAi</h1>
+            
+            <!-- Subtitle -->
+            <p class="subtitle">Clarity of Voice</p>
+            
+            <!-- Subheading -->
+            <p class="subheading">Make Communication Easier</p>
+            
+            <!-- Voice Recording Circle -->
+            <div class="voice-circle-container">
+                <div class="voice-circle" id="voiceCircle">
+                    <svg class="voice-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Recording Controls -->
+            <div id="controls" class="controls">
+                <button id="recordBtn" class="record-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                    </svg>
+                    Start Recording
+                </button>
+            </div>
+            
+            <div id="timer" class="timer"></div>
+            <div id="status" class="status">Ready to record</div>
+            
+            <!-- Transcript Area -->
+            <div id="transcriptContainer" class="transcript-container">
+                <div id="transcriptText" class="transcript-text">
+                    Your transcription will appear here...
+                </div>
+                <div id="transcriptInfo" class="transcript-info"></div>
+            </div>
+            
+            <!-- Description Section -->
+            <div class="description-section" id="descriptionSection">
+                <p class="description-text">
+                    CovAi empowers deaf and hard-of-hearing individuals by transcribing spoken language into clear, real-time text. Whether you're in a classroom, meeting, or everyday conversation — CovAi ensures you never miss a word.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="#terms">Terms</a>
+                <a href="#privacy">Privacy</a>
+            </div>
+            <p class="footer-text">© 2024 CovAi. Make Communication Easier.</p>
+        </div>
+    </footer>
+
+    <script>
+        class CovAiTranscriber {
+            constructor() {
+                this.voiceCircle = document.getElementById('voiceCircle');
+                this.recordBtn = document.getElementById('recordBtn');
+                this.status = document.getElementById('status');
+                this.timer = document.getElementById('timer');
+                this.transcriptContainer = document.getElementById('transcriptContainer');
+                this.transcriptText = document.getElementById('transcriptText');
+                this.transcriptInfo = document.getElementById('transcriptInfo');
+                this.navBar = document.getElementById('navBar');
+                this.descriptionSection = document.getElementById('descriptionSection');
+                
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+                this.isRecording = false;
+                this.recordingTimer = null;
+                this.countdownTimer = null;
+                this.maxRecordingTime = 60000; // 1 minute
+                
+                this.bindEvents();
+                this.initializeNavBar();
+                this.initializeScrollAnimations();
+            }
+            
+            bindEvents() {
+                this.voiceCircle.addEventListener('click', () => this.toggleRecording());
+                this.recordBtn.addEventListener('click', () => this.toggleRecording());
+            }
+            
+            initializeNavBar() {
+                // Always show nav bar (sticky)
+                this.navBar.style.opacity = '1';
+            }
+            
+            initializeScrollAnimations() {
+                // Intersection Observer for description section
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0.3,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                
+                observer.observe(this.descriptionSection);
+            }
+            
+            async toggleRecording() {
+                if (this.isRecording) {
+                    this.stopRecording();
+                } else {
+                    this.startRecording();
+                }
+            }
+            
+            async startRecording() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            sampleRate: 16000,
+                            channelCount: 1,
+                            echoCancellation: true,
+                            noiseSuppression: true
+                        } 
+                    });
+                    
+                    this.mediaRecorder = new MediaRecorder(stream, {
+                        mimeType: 'audio/webm;codecs=opus'
+                    });
+                    
+                    this.audioChunks = [];
+                    
+                    this.mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) {
+                            this.audioChunks.push(event.data);
+                        }
+                    };
+                    
+                    this.mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+                        this.submitAudio(audioBlob);
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+                    
+                    this.mediaRecorder.start(100);
+                    this.isRecording = true;
+                    
+                    // Update UI with ChatGPT-like animation
+                    this.voiceCircle.classList.add('recording');
+                    this.recordBtn.style.display = 'none';
+                    this.status.className = 'status listening';
+                    this.status.textContent = 'Listening...';
+                    
+                    this.startCountdown();
+                    
+                    this.recordingTimer = setTimeout(() => {
+                        if (this.isRecording) {
+                            this.stopRecording();
+                        }
+                    }, this.maxRecordingTime);
+                    
+                } catch (error) {
+                    console.error('Error accessing microphone:', error);
+                    this.status.className = 'status error';
+                    this.status.textContent = 'Error: Could not access microphone. Please check permissions.';
+                }
+            }
+            
+            startCountdown() {
+                let timeLeft = 60;
+                this.countdownTimer = setInterval(() => {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    this.timer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(this.countdownTimer);
+                        this.timer.textContent = '';
+                        if (this.isRecording) {
+                            this.stopRecording();
+                        }
+                    }
+                }, 1000);
+            }
+            
+            stopRecording() {
+                if (this.mediaRecorder && this.isRecording) {
+                    if (this.recordingTimer) {
+                        clearTimeout(this.recordingTimer);
+                        this.recordingTimer = null;
+                    }
+                    if (this.countdownTimer) {
+                        clearInterval(this.countdownTimer);
+                        this.countdownTimer = null;
+                    }
+                    
+                    this.mediaRecorder.stop();
+                    this.isRecording = false;
+                    
+                    // Stop the recording animation
+                    this.voiceCircle.classList.remove('recording');
+                    
+                    // Update UI
+                    this.recordBtn.style.display = 'inline-block';
+                    this.status.className = 'status processing';
+                    this.status.textContent = 'Processing your audio...';
+                    this.timer.textContent = '';
+                }
+            }
+            
+            async submitAudio(audioBlob) {
+                try {
+                    const formData = new FormData();
+                    formData.append('audio_file', audioBlob, 'recording.wav');
+                    
+                    this.status.className = 'status processing';
+                    this.status.textContent = 'Sending to transcription service...';
+                    
+                    const response = await fetch('/transcribe', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        this.displayTranscription(data);
+                        this.status.className = 'status ready';
+                        this.status.textContent = 'Ready for next recording';
+                    } else {
+                        this.displayError(data.message || 'Transcription failed');
+                        this.status.className = 'status error';
+                        this.status.textContent = 'Error occurred';
+                    }
+                    
+                } catch (error) {
+                    console.error('Error submitting audio:', error);
+                    this.displayError('Could not connect to transcription service');
+                    this.status.className = 'status error';
+                    this.status.textContent = 'Connection error';
+                }
+            }
+            
+            displayTranscription(data) {
+                this.transcriptContainer.classList.add('show');
+                this.transcriptText.textContent = data.text || data.transcription || 'No transcription received';
+                
+                if (data.language) {
+                    this.transcriptInfo.textContent = `Language: ${data.language} (${(data.language_probability * 100).toFixed(1)}% confidence)`;
+                } else {
+                    this.transcriptInfo.textContent = '';
+                }
+            }
+            
+            displayError(message) {
+                this.transcriptContainer.classList.add('show');
+                this.transcriptText.innerHTML = `<div class="error-message">❌ ${message}</div>`;
+                this.transcriptInfo.textContent = '';
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new CovAiTranscriber();
+        });
+    </script>
+</body>
+</html> 

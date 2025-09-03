@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CovAI - AI-powered voice transcription for accessible communication">
+    <meta name="keywords" content="voice transcription, accessibility, hearing impaired, AI transcription">
+    <title>CovAI - Make Communication Easier</title>
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #370617;
+            --secondary-bg: #2a0a12;
+            --accent-color: #667eea;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d1d1;
+            --text-muted: #b8b8b8;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.2);
+            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.3);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Chillax', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-bg);
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .landing-container {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+        }
+
+        .hero-section {
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .main-heading {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .subheading {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .description {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin: 48px 0;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--accent-color);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            margin-top: 64px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .cta-button {
+            font-size: 1.125rem;
+            font-weight: 600;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .secondary-actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .secondary-button {
+            font-size: 1rem;
+            font-weight: 500;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--text-secondary);
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .secondary-button:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-color);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .footer-section {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .landing-container {
+                padding: 30px 16px;
+            }
+
+            .main-heading {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .secondary-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="landing-container">
+        <section class="hero-section" aria-labelledby="main-heading">
+            <h1 id="main-heading" class="main-heading">CovAI</h1>
+            <h2 class="subheading">Make Communication Easier</h2>
+            <p class="description">
+                Transform your voice into clear, readable text instantly. 
+                Empowering communication for everyone, everywhere with AI-powered transcription technology.
+            </p>
+        </section>
+
+        <section class="features-grid" aria-labelledby="features-heading">
+            <h2 id="features-heading" class="sr-only">Key Features</h2>
+            
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">🎤</span>
+                <h3 class="feature-title">Real-time Transcription</h3>
+                <p class="feature-description">
+                    Convert speech to text instantly with high accuracy using advanced AI technology.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">♿</span>
+                <h3 class="feature-title">Accessibility First</h3>
+                <p class="feature-description">
+                    Designed specifically for the hearing impaired community with intuitive controls.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">📱</span>
+                <h3 class="feature-title">Mobile Optimized</h3>
+                <p class="feature-description">
+                    Works seamlessly across all devices with responsive design and touch-friendly interface.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">🔒</span>
+                <h3 class="feature-title">Privacy Focused</h3>
+                <p class="feature-description">
+                    Your conversations stay private with secure processing and no data retention.
+                </p>
+            </div>
+        </section>
+
+        <section class="cta-section" aria-labelledby="cta-heading">
+            <h2 id="cta-heading" class="sr-only">Get Started</h2>
+            <a href="/templates/index.html" class="cta-button" aria-label="Start using CovAI transcription service">
+                Get Started Now
+            </a>
+            
+            <div class="secondary-actions">
+                <a href="/templates/index.html" class="secondary-button" aria-label="Try CovAI demo">
+                    Try Demo
+                </a>
+                <a href="#features" class="secondary-button" aria-label="Learn more about features">
+                    Learn More
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer-section" aria-label="Site footer">
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="/templates/index.html" class="footer-link">App</a>
+                <a href="#about" class="footer-link">About</a>
+                <a href="#contact" class="footer-link">Contact</a>
+                <a href="#privacy" class="footer-link">Privacy</a>
+            </nav>
+            <p class="copyright">
+                &copy; 2024 CovAI. Making communication accessible for everyone.
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.feature-card, .hero-section, .cta-section').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
