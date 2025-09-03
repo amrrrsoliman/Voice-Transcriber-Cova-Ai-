@@ -14,12 +14,18 @@ Live countdown timer showing remaining time
 High-quality audio capture with noise suppression and echo cancellation
 
 Real-time visual feedback with animated wave indicators
+
 🎨 Accessibility-First Design
+
 Soft off-white background for reduced eye strain
+
 Dark purple (#4B0082) and black color palette for high contrast
+
 Large, readable fonts optimized for accessibility
+
 Clear visual feedback for all system states
 Mobile-responsive design for all devices
+
 Requirements
 Python 3.10+
 OpenAI API key (set as environment variable OPENAI_API_KEY)
