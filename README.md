@@ -1,3 +1,5 @@
+**project code uploaded in the Master Branch**
+
 Live Voice Transcriber for the Deaf
 A beautiful, accessible voice-to-text transcription system optimized for deaf users. This application provides real-time speech transcription with a user-friendly interface designed specifically for accessibility.
 
