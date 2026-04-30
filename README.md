@@ -1,7 +1,6 @@
-# 🎙️ CovAI – Real-Time Voice Transcriber for the Deaf (Project code is uploaded in the master branch)
+# 🎙️ CovAI – Real-Time Voice Transcriber for the Deaf 
 
-
-A beautiful, accessible real-time speech-to-text transcription system optimized for deaf and hard-of-hearing users. Built with **OpenAI's Whisper API** and a responsive web interface, providing accurate, low-latency transcription with an accessibility-first design.
+# A beautiful, accessible real-time speech-to-text transcription system optimized for deaf and hard-of-hearing users. Built with **OpenAI's Whisper API** and a responsive web interface, providing accurate, low-latency transcription with an accessibility-first design.
 
 ---
 
